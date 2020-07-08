@@ -15,16 +15,19 @@ const App = () => {
   // our effect
   useEffect(() => {
     console.log("Component did Mount");
-    console.log(height);
 
     return () => {
       console.log("Component did Unmount");
     };
-  }, [height]);
+  }, []);
 
   useEffect(() => {
     document.title = `Count : ${count}`;
   }, [count]);
+
+  useEffect(() => {
+    console.log(height);
+  }, [height]);
 
   return (
     <React.Fragment>
