@@ -17,16 +17,22 @@ function reducer(state, action) {
 }
 
 const App = () => {
-  // our state
+  /* -------------------------------- our state ------------------------------- */
   const [count, setCount] = useState(0);
 
-  // bad way
+  /* -------------------------------------------------------------------------- */
+
+  /* --------------------------------- bad way -------------------------------- */
   const fruitStateVariable = useState("banana");
 
-  // our custom effect
+  /* -------------------------------------------------------------------------- */
+
+  /* ---------------------------- our custom effect --------------------------- */
   const height = useInnerHeight(count);
 
-  // our effect
+  /* -------------------------------------------------------------------------- */
+
+  /* ------------------------------- our effect ------------------------------- */
   useEffect(() => {
     console.log("Component did Mount");
 
@@ -43,17 +49,23 @@ const App = () => {
     console.log(height);
   }, [height]);
 
-  // our useReducer
+  /* -------------------------------------------------------------------------- */
+
+  /* ----------------------------- our useReducer ----------------------------- */
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // our useRef
+  /* -------------------------------------------------------------------------- */
+
+  /* ------------------------------- our useRef ------------------------------- */
   const inputEl = useRef(null);
 
   const onButtonClick = () => {
     inputEl.current.focus();
   };
 
-  // our useMemo
+  /* -------------------------------------------------------------------------- */
+
+  /* ------------------------------- our useMemo ------------------------------ */
   const slowFunction = (num) => {
     for (let i = 0; i <= 1000000000; i++) {}
     return num * 2;
@@ -69,6 +81,9 @@ const App = () => {
   }, [dark]);
 
   const doubleNumber = useMemo(() => slowFunction(num), [num]);
+
+  /* -------------------------------------------------------------------------- */
+
   return (
     <div className="d-flex flex-column align-items-center">
       <Link to="/home">Home</Link>
