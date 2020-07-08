@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useRef } from "react";
+import React, { useState, useEffect, useReducer, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useInnerHeight } from "./useInnerHeight";
 
@@ -53,6 +53,22 @@ const App = () => {
     inputEl.current.focus();
   };
 
+  // our useMemo
+  const slowFunction = (num) => {
+    for (let i = 0; i <= 1000000000; i++) {}
+    return num * 2;
+  };
+  const [num, setNum] = useState(0);
+  const [dark, setDark] = useState(false);
+
+  const themeStyle = useMemo(() => {
+    return {
+      backgroundColor: dark ? "#333" : "#ddd",
+      color: dark ? "white" : "black",
+    };
+  }, [dark]);
+
+  const doubleNumber = useMemo(() => slowFunction(num), [num]);
   return (
     <div className="d-flex flex-column align-items-center">
       <Link to="/home">Home</Link>
@@ -92,6 +108,18 @@ const App = () => {
         <button className="btn btn-info btn-sm" onClick={onButtonClick}>
           Focus the input
         </button>
+      </div>
+
+      <div>
+        <input
+          type="number"
+          value={num}
+          onChange={(e) => setNum(parseInt(e.target.value))}
+        />
+        <button onClick={() => setDark((prevDark) => !prevDark)}>
+          Change Theme
+        </button>
+        <div style={themeStyle}>{doubleNumber}</div>
       </div>
     </div>
   );
