@@ -1,4 +1,6 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useInnerHeight } from "./useInnerHeight";
 
 const App = () => {
   // our state
@@ -7,13 +9,27 @@ const App = () => {
   //bad way
   const fruitStateVariable = useState("banana");
 
+  // our custom effect
+  const height = useInnerHeight(count);
+
   // our effect
   useEffect(() => {
-    console.log(count);
+    console.log("Component did Mount");
+    console.log(height);
+
+    return () => {
+      console.log("Component did Unmount");
+    };
+  }, [height]);
+
+  useEffect(() => {
+    document.title = `Count : ${count}`;
   }, [count]);
 
   return (
     <React.Fragment>
+      <p>You clicked {count} times</p>
+
       <div
         onClick={() => {
           setCount(count + 1);
@@ -26,9 +42,8 @@ const App = () => {
 
       <div>{fruitStateVariable[0]}</div>
 
-      <div>{count}</div>
+      <Link to="/home">Home</Link>
     </React.Fragment>
   );
 };
-
 export default App;
