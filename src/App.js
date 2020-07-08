@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useInnerHeight } from "./useInnerHeight";
 
@@ -46,6 +46,13 @@ const App = () => {
   // our useReducer
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // our useRef
+  const inputEl = useRef(null);
+
+  const onButtonClick = () => {
+    inputEl.current.focus();
+  };
+
   return (
     <div className="d-flex flex-column align-items-center">
       <Link to="/home">Home</Link>
@@ -77,6 +84,13 @@ const App = () => {
           onClick={() => dispatch({ type: "increment" })}
         >
           Increment
+        </button>
+      </div>
+
+      <div className="my-3">
+        <input className="form-control mb-3" ref={inputEl} type="text" />
+        <button className="btn btn-info btn-sm" onClick={onButtonClick}>
+          Focus the input
         </button>
       </div>
     </div>
