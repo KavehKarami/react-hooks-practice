@@ -20,7 +20,7 @@ const App = () => {
   // our state
   const [count, setCount] = useState(0);
 
-  //bad way
+  // bad way
   const fruitStateVariable = useState("banana");
 
   // our custom effect
@@ -45,6 +45,7 @@ const App = () => {
 
   // our useReducer
   const [state, dispatch] = useReducer(reducer, initialState);
+
   return (
     <div className="d-flex flex-column align-items-center">
       <Link to="/home">Home</Link>
