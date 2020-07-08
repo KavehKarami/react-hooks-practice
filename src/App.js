@@ -1,6 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { Link } from "react-router-dom";
 import { useInnerHeight } from "./useInnerHeight";
+
+// our Reduser
+const initialState = { number: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "increment":
+      return { number: state.number + 1 };
+    case "decrement":
+      return { number: state.number - 1 };
+    default:
+      throw new Error();
+  }
+}
 
 const App = () => {
   // our state
@@ -29,8 +43,12 @@ const App = () => {
     console.log(height);
   }, [height]);
 
+  // our useReducer
+  const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <React.Fragment>
+    <div className="d-flex flex-column align-items-center">
+      <Link to="/home">Home</Link>
+
       <p>You clicked {count} times</p>
 
       <div
@@ -45,8 +63,22 @@ const App = () => {
 
       <div>{fruitStateVariable[0]}</div>
 
-      <Link to="/home">Home</Link>
-    </React.Fragment>
+      <div className="mt-3">
+        <button
+          className="btn btn-outline-danger btn-sm mr-3"
+          onClick={() => dispatch({ type: "decrement" })}
+        >
+          Decrement
+        </button>
+        <span>{state.number}</span>
+        <button
+          className="btn btn-outline-success btn-sm ml-3"
+          onClick={() => dispatch({ type: "increment" })}
+        >
+          Increment
+        </button>
+      </div>
+    </div>
   );
 };
 export default App;
