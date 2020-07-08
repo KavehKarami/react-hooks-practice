@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect } from "react";
 
 const App = () => {
-  // our starte
-  const [count, setCount] = useState(null);
+  // our state
+  const [count, setCount] = useState(0);
 
   //bad way
   const fruitStateVariable = useState("banana");
